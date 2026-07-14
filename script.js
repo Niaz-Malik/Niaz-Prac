@@ -40,30 +40,21 @@ function typeSub() {
     }
 }
 
-// Start Typing Effect
 typeTitle();
 
 /* ==========================================
-        AUDIO CONTROL WITH GESTURE RECOVERY
+        AUDIO CONTROL
 ========================================== */
 const music = document.getElementById("music");
 const musicBtn = document.getElementById("musicBtn");
 let isPlaying = false;
-
-// Auto-play on first click anywhere (for browsers restriction)
-document.body.addEventListener('click', () => {
-    if(!isPlaying) {
-        // Uncomment below to autoplay on first page interaction
-        // playMusic();
-    }
-}, { once: true });
 
 function playMusic() {
     music.play().then(() => {
         isPlaying = true;
         musicBtn.innerHTML = "<i class='fa-solid fa-pause'></i>";
         musicBtn.classList.add("pulse-animation");
-    }).catch(err => console.log("User interaction required first"));
+    }).catch(err => console.log("User interaction required"));
 }
 
 function pauseMusic() {
@@ -83,14 +74,17 @@ musicBtn.onclick = (e) => {
 };
 
 /* ==========================================
-        DYNAMIC "YES" & "NO" BUTTON SYSTEM
+        YES & NO INTERACTIONS WITH POPUP
 ========================================== */
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
+const yesPopup = document.getElementById("yesPopup");
+const closePopup = document.getElementById("closePopup");
+
 let yesScale = 1;
 let noScale = 1;
 
-// "NO" button behavior (Run away)
+// NO button slides away
 noBtn.addEventListener("mouseover", () => {
     const x = Math.random() * (window.innerWidth - 180);
     const y = Math.random() * (window.innerHeight - 80);
@@ -99,7 +93,7 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.style.top = y + "px";
 });
 
-// If they manage to tap/click "NO", make "YES" bigger!
+// If they manage to click NO, make YES bigger
 noBtn.addEventListener("click", () => {
     yesScale += 0.3;
     noScale -= 0.15;
@@ -111,22 +105,28 @@ noBtn.addEventListener("click", () => {
     }
 });
 
-// "YES" Click - Background change, alert & starts Fireworks
+// YES Button - Reveals Success Letter and Memories Gallery
 yesBtn.onclick = () => {
-    document.body.style.background = "linear-gradient(135deg, #1e0010, #3a001a, #000000)";
+    // Dynamic overlay theme change
+    document.querySelector('.overlay').style.background = "radial-gradient(circle, rgba(60, 0, 30, 0.75) 0%, rgba(0,0,0,0.95) 100%)";
     
-    // Smooth scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Auto-play music if it wasn't playing
+    if (!isPlaying) playMusic();
 
-    // Custom alerts instead of basic ones
-    alert("❤️ OMG! THANK YOU! ❤️\n\nYou have made me the happiest person in the world!");
-    
-    // Fire real canvas fireworks
+    // Trigger Popup
+    yesPopup.classList.add("active");
+
+    // Start Real Canvas Fireworks
     startFireworks();
 };
 
+// Close Popup Button
+closePopup.onclick = () => {
+    yesPopup.classList.remove("active");
+};
+
 /* ==========================================
-        RAIN GENERATORS (Hearts & Roses)
+        RAIN GENERATORS
 ========================================== */
 const heartsContainer = document.getElementById("hearts");
 const rosesContainer = document.getElementById("roses");
@@ -137,23 +137,16 @@ function createFallingElement(container, char, baseSpeed) {
     el.innerHTML = char;
     el.style.left = Math.random() * 100 + "%";
     
-    // Random sizes
     const size = (15 + Math.random() * 25);
     el.style.fontSize = size + "px";
     
-    // Random speeds
     const duration = (baseSpeed + Math.random() * 4);
     el.style.animationDuration = duration + "s";
     
     container.appendChild(el);
-    
-    // Self cleanup
-    setTimeout(() => {
-        el.remove();
-    }, duration * 1000);
+    setTimeout(() => { el.remove(); }, duration * 1000);
 }
 
-// Spawning intervals
 setInterval(() => createFallingElement(heartsContainer, "❤️", 5), 350);
 setInterval(() => createFallingElement(rosesContainer, "🌹", 6), 650);
 
@@ -161,7 +154,7 @@ setInterval(() => createFallingElement(rosesContainer, "🌹", 6), 650);
         STARS GENERATOR
 ========================================== */
 const stars = document.getElementById("stars");
-const starCount = 150;
+const starCount = 100;
 
 for (let i = 0; i < starCount; i++) {
     const star = document.createElement("div");
@@ -182,28 +175,23 @@ document.addEventListener("mousemove", (e) => {
     spark.style.left = e.clientX + "px";
     spark.style.top = e.clientY + "px";
     
-    // Randomise spark hue slightly
     const randomColors = ["#ff007f", "#ff4d88", "#ff0066", "#ffccd5"];
     spark.style.backgroundColor = randomColors[Math.floor(Math.random() * randomColors.length)];
     
     document.body.appendChild(spark);
-    setTimeout(() => {
-        spark.remove();
-    }, 800);
+    setTimeout(() => { spark.remove(); }, 800);
 });
 
 /* ==========================================
         COUNTDOWN TIMER
 ========================================== */
 const countdown = document.getElementById("countdown");
-// Format: Year, Month (0-indexed, so 1 = Feb), Day
-const targetDate = new Date(2026, 1, 14, 0, 0, 0).getTime(); 
+const targetDate = new Date("2026-02-14").getTime(); 
 
 function updateTimer() {
     const now = new Date().getTime();
     const diff = targetDate - now;
 
-    // Check if the date has already passed
     if (diff < 0) {
         countdown.innerHTML = "<span>Our Beautiful Journey Has Begun ❤️</span>";
         return;
@@ -233,9 +221,7 @@ const ctx = canvas.getContext("2d");
 
 let fireworksActive = false;
 let particles = [];
-let fireworkSpawns = [];
 
-// Resize canvas
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -294,7 +280,6 @@ function animateFireworks() {
     requestAnimationFrame(animateFireworks);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Randomly spawn explosions
     if (Math.random() < 0.05) {
         const rx = Math.random() * canvas.width;
         const ry = Math.random() * (canvas.height * 0.6);
@@ -311,9 +296,8 @@ function animateFireworks() {
 function startFireworks() {
     fireworksActive = true;
     animateFireworks();
-    // Auto stop after 15 seconds to save processing power
     setTimeout(() => {
         fireworksActive = false;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }, 15000);
+    }, 15000); // stops after 15 seconds
 }

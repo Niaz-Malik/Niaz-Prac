@@ -24,7 +24,7 @@
     <div class="overlay"></div>
     <canvas id="fireworksCanvas"></canvas>
 
-    <!-- Floating Background Effects Containers -->
+    <!-- Floating Particles -->
     <div id="stars"></div>
     <div id="hearts"></div>
     <div id="roses"></div>
@@ -35,8 +35,6 @@
         <div class="logo">❤️ Forever</div>
         <ul>
             <li><a href="#"><i class="fa-solid fa-house"></i> Home</a></li>
-            <li><a href="#letter"><i class="fa-solid fa-envelope"></i> Letter</a></li>
-            <li><a href="#gallery"><i class="fa-solid fa-images"></i> Gallery</a></li>
             <li><a href="#timer"><i class="fa-solid fa-clock"></i> Love Time</a></li>
         </ul>
     </nav>
@@ -60,38 +58,42 @@
         </div>
     </section>
 
-    <!-- Love Letter -->
-    <section id="letter">
-        <div class="glass card-animate">
-            <h2><i class="fa-solid fa-envelope-open-text" style="color: #ff4d88;"></i> My Love Letter</h2>
-            <div class="letter-border"></div>
-            <p>
-                From the first moment I saw you, my life changed forever. <br>
-                Your smile is my happiness. Your voice is my peace. <br>
-                Your love is my world. <br><br>
-                <strong>Will you stay with me forever?</strong> ❤️
-            </p>
-        </div>
-    </section>
+    <!-- Dynamic "YES" Surprise Popup (Hidden initially, appears on YES click) -->
+    <div id="yesPopup" class="popup-overlay">
+        <div class="popup-glass animate-popup">
+            <button id="closePopup" class="close-btn">&times;</button>
+            
+            <div class="popup-header">
+                <h2><i class="fa-solid fa-envelope-open-text" style="color: #ff4d88;"></i> My Dearest Love</h2>
+                <div class="letter-border"></div>
+            </div>
 
-    <!-- Gallery -->
-    <section id="gallery">
-        <div class="section-title">
-            <h2>📸 Our Memories</h2>
-            <p>Capturing beautiful moments of us</p>
+            <div class="popup-body">
+                <p class="love-message">
+                    "Thank you for making me the happiest person in the universe! 
+                    From the moment you entered my life, every day feels like a beautiful dream. 
+                    I promise to hold your hand through every storm, to smile with you in every joy, 
+                    and to love you more with every single breath." ❤️
+                </p>
+
+                <!-- Surprise Gallery Loaded inside the Success Letter -->
+                <div class="surprise-gallery-section">
+                    <h3><i class="fa-solid fa-images"></i> Our Sweetest Memories</h3>
+                    <div class="gallery">
+                        <div class="gallery-item"><img src="assets/photo1.jpg" alt="Memory 1"></div>
+                        <div class="gallery-item"><img src="assets/photo2.jpg" alt="Memory 2"></div>
+                        <div class="gallery-item"><img src="assets/photo3.jpg" alt="Memory 3"></div>
+                        <div class="gallery-item"><img src="assets/photo4.jpg" alt="Memory 4"></div>
+                        <div class="gallery-item"><img src="assets/photo5.jpg" alt="Memory 5"></div>
+                        <div class="gallery-item"><img src="assets/photo6.jpg" alt="Memory 6"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="gallery">
-            <div class="gallery-item"><img src="assets/photo1.jpg" alt="Memory 1"></div>
-            <div class="gallery-item"><img src="assets/photo2.jpg" alt="Memory 2"></div>
-            <div class="gallery-item"><img src="assets/photo3.jpg" alt="Memory 3"></div>
-            <div class="gallery-item"><img src="assets/photo4.jpg" alt="Memory 4"></div>
-            <div class="gallery-item"><img src="assets/photo5.jpg" alt="Memory 5"></div>
-            <div class="gallery-item"><img src="assets/photo6.jpg" alt="Memory 6"></div>
-        </div>
-    </section>
+    </div>
 
     <!-- Countdown / Timer -->
-    <section id="timer" class="love-time card-animate">
+    <section id="timer" class="love-time">
         <div class="glass">
             <h2>⏳ Time Since We Met</h2>
             <div class="timer-border"></div>
