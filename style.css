@@ -1,751 +1,490 @@
 /*==========================================
         GOOGLE FONT & RESET
 ==========================================*/
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:#000;
-    color:#fff;
-    overflow-x:hidden;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #050505;
+    color: #fff;
+    overflow-x: hidden;
 }
 
 /*==========================================
-        BACKGROUND VIDEO
+        BACKGROUND & OVERLAYS
 ==========================================*/
-
-#bgVideo{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-3;
+#bgVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -3;
 }
 
-.overlay{
-    position:fixed;
-    inset:0;
-    background:linear-gradient(
-        rgba(0,0,0,.55),
-        rgba(0,0,0,.75)
-    );
-    z-index:-2;
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
+    z-index: -2;
+}
+
+#fireworksCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* Fireworks will overlay nicely when Yes clicked */
+    pointer-events: none;
 }
 
 /*==========================================
         LOADER
 ==========================================*/
-
-#loader{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:9999;
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #0a050d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s;
 }
 
-.loader-heart{
-    font-size:90px;
-    animation:heartbeat 1s infinite;
+.loader-heart {
+    font-size: 100px;
+    animation: heartbeat 1.2s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+    filter: drop-shadow(0 0 20px #ff0066);
 }
 
-#loader h2{
-    margin-top:20px;
-    letter-spacing:3px;
-    color:#ff4d88;
+#loader h2 {
+    margin-top: 25px;
+    letter-spacing: 5px;
+    font-size: 24px;
+    color: #ff4d88;
+    text-shadow: 0 0 10px rgba(255, 77, 136, 0.5);
+    font-weight: 300;
 }
 
-@keyframes heartbeat{
-
-0%,100%{
-transform:scale(1);
-}
-
-50%{
-transform:scale(1.25);
-}
-
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    30% { transform: scale(1.3); }
+    60% { transform: scale(1.15); }
 }
 
 /*==========================================
         NAVBAR
 ==========================================*/
-
-nav{
-    position:fixed;
-    width:100%;
-    top:0;
-    left:0;
-    padding:20px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    backdrop-filter:blur(15px);
-    background:rgba(255,255,255,.05);
-    z-index:1000;
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 15px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background: rgba(10, 5, 15, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 1000;
 }
 
-.logo{
-    font-size:30px;
-    color:#ff4d88;
-    font-weight:bold;
-    font-family:'Great Vibes',cursive;
+.logo {
+    font-size: 32px;
+    color: #ff4d88;
+    font-weight: bold;
+    font-family: 'Great Vibes', cursive;
+    text-shadow: 0 0 15px rgba(255, 77, 136, 0.6);
 }
 
-nav ul{
-    display:flex;
-    gap:30px;
-    list-style:none;
+nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
 }
 
-nav a{
-    color:#fff;
-    text-decoration:none;
-    transition:.3s;
+nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 20px;
 }
 
-nav a:hover{
-    color:#ff4d88;
+nav a:hover {
+    color: #ff4d88;
+    background: rgba(255, 77, 136, 0.1);
 }
 
 /*==========================================
-        HERO
+        HERO SECTION
 ==========================================*/
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    padding:30px;
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px 40px;
 }
 
-#typing{
-    font-size:70px;
-    color:#fff;
-    text-shadow:
-    0 0 10px #ff0080,
-    0 0 25px #ff0080,
-    0 0 50px #ff0080;
+.hero-content {
+    max-width: 900px;
 }
 
-.hero p{
-    max-width:800px;
-    margin-top:25px;
-    line-height:2;
-    font-size:22px;
+#typing {
+    font-size: 70px;
+    color: #fff;
+    font-family: 'Great Vibes', cursive;
+    text-shadow: 0 0 15px #ff0080, 0 0 40px #ff0080;
+    line-height: 1.2;
 }
 
-.ring{
-    width:180px;
-    margin-top:40px;
-    animation:ring 3s ease-in-out infinite;
-    filter:drop-shadow(0 0 25px gold);
+.sub-text {
+    font-size: 24px;
+    color: #ffb3d1;
+    margin-top: 10px;
+    min-height: 35px;
+    font-weight: 300;
 }
 
-@keyframes ring{
-
-0%{
-transform:translateY(0);
+.hero-desc {
+    margin-top: 25px;
+    line-height: 1.8;
+    font-size: 20px;
+    color: #f0f0f0;
 }
 
-50%{
-transform:translateY(-18px);
+.ring-container {
+    margin: 40px 0;
+    position: relative;
+    display: inline-block;
 }
 
-100%{
-transform:translateY(0);
+.ring {
+    width: 160px;
+    animation: floatingRing 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
 }
 
+@keyframes floatingRing {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
 }
 
 /*==========================================
         BUTTONS
 ==========================================*/
-
-.buttons{
-    margin-top:40px;
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-    justify-content:center;
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 80px;
 }
 
-.buttons button{
-    width:180px;
-    height:60px;
-    border:none;
-    border-radius:50px;
-    cursor:pointer;
-    font-size:20px;
-    font-weight:bold;
-    transition:.35s;
+.buttons button {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    letter-spacing: 1px;
+    outline: none;
 }
 
-#yesBtn{
-    background:#ff0066;
-    color:#fff;
-    box-shadow:0 0 25px #ff0066;
+#yesBtn {
+    background: linear-gradient(45deg, #ff0066, #ff007f);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(255, 0, 102, 0.4);
 }
 
-#yesBtn:hover{
-    transform:scale(1.1);
+#yesBtn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 15px 35px rgba(255, 0, 102, 0.7);
 }
 
-#noBtn{
-    background:#fff;
-    color:#000;
+#noBtn {
+    background: #ffffff;
+    color: #111;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
-#noBtn:hover{
-    transform:scale(1.1);
-}
-
-/*==========================================
-        GLASS CARD
-==========================================*/
-
-.glass{
-    width:90%;
-    max-width:900px;
-    margin:120px auto;
-    padding:40px;
-    border-radius:25px;
-    backdrop-filter:blur(20px);
-    background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.15);
-    box-shadow:0 0 40px rgba(255,0,120,.35);
-}
-
-.glass h2{
-    text-align:center;
-    margin-bottom:20px;
-    font-size:45px;
-}
-
-.glass p{
-    line-height:2;
-    text-align:center;
-    font-size:22px;
+#noBtn:hover {
+    transform: scale(0.95);
 }
 
 /*==========================================
-        GALLERY
+        GLASS CARDS (LETTER & TIMER)
 ==========================================*/
-
-#gallery{
-    width:90%;
-    margin:100px auto;
+.glass {
+    width: 90%;
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 50px 40px;
+    border-radius: 30px;
+    backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 50px rgba(255, 0, 120, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-#gallery h2{
-    text-align:center;
-    font-size:45px;
-    margin-bottom:40px;
+.glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(255, 0, 120, 0.25);
 }
 
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
+.glass h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 36px;
+    color: #ff4d88;
 }
 
-.gallery img{
-    width:100%;
-    height:320px;
-    object-fit:cover;
-    border-radius:20px;
-    transition:.5s;
+.letter-border, .timer-border {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ff4d88, transparent);
+    margin: 0 auto 25px;
 }
 
-.gallery img:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 30px #ff4d88;
+.glass p {
+    line-height: 1.8;
+    text-align: center;
+    font-size: 20px;
+    color: #e0e0e0;
 }
 
 /*==========================================
-        COUNTDOWN
+        MEMORIES GALLERY
 ==========================================*/
-
-.love-time{
-    margin:100px auto;
-    text-align:center;
+#gallery {
+    width: 90%;
+    max-width: 1200px;
+    margin: 120px auto;
 }
 
-#countdown{
-    margin-top:25px;
-    font-size:35px;
-    color:#ff4d88;
-    font-weight:bold;
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-size: 42px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #ff4d88;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    height: 320px;
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1) rotate(1deg);
+    filter: brightness(1.1);
+}
+
+/*==========================================
+        COUNTDOWN / TIMER
+==========================================*/
+.love-time {
+    margin: 100px auto;
+}
+
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 24px;
+    color: #ff4d88;
+    font-weight: 700;
+}
+
+#countdown span {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/*==========================================
+        FLOATING RAINS & PARTIClES
+==========================================*/
+#stars, #hearts, #roses, #sparkles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+
+.heart, .rose {
+    position: absolute;
+    top: -50px;
+    user-select: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.spark {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff007f;
+    box-shadow: 0 0 8px #ff007f, 0 0 15px #ff007f;
+    pointer-events: none;
+    animation: sparkAnim 0.8s ease-out forwards;
+}
+
+@keyframes sparkAnim {
+    0% { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(0) translateY(10px); opacity: 0; }
 }
 
 /*==========================================
         MUSIC BUTTON
 ==========================================*/
+#musicBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ff0066;
+    color: #fff;
+    cursor: pointer;
+    font-size: 22px;
+    box-shadow: 0 5px 20px rgba(255, 0, 102, 0.5);
+    z-index: 999;
+    transition: all 0.3s;
+}
 
-#musicBtn{
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#ff0066;
-    cursor:pointer;
-    font-size:25px;
-    box-shadow:0 0 25px #ff0066;
+#musicBtn:hover {
+    transform: scale(1.1);
+}
+
+.pulse-animation {
+    animation: musicPulse 2s infinite;
+}
+
+@keyframes musicPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 0, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 102, 0); }
 }
 
 /*==========================================
         FOOTER
 ==========================================*/
+footer {
+    text-align: center;
+    padding: 50px 20px;
+    background: rgba(10, 5, 15, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-footer{
-    text-align:center;
-    padding:40px;
+footer h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #ff4d88;
+    text-shadow: 0 0 10px rgba(255, 77, 136, 0.4);
 }
 
 /*==========================================
-        RESPONSIVE
+        RESPONSIVE DESIGN
 ==========================================*/
-
-@media(max-width:768px){
-
-#typing{
-font-size:42px;
-}
-
-.hero p{
-font-size:18px;
-}
-
-.ring{
-width:120px;
-}
-
-.buttons{
-flex-direction:column;
-}
-
-.buttons button{
-width:100%;
-max-width:260px;
-}
-
-.glass h2,
-#gallery h2{
-font-size:32px;
-}
-
-.glass p{
-font-size:18px;
-}
-
-}
-
-
-/*==========================================
-        ANIMATED STARS
-==========================================*/
-
-#stars{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-1;
-    overflow:hidden;
-    pointer-events:none;
-}
-
-.star{
-    position:absolute;
-    width:3px;
-    height:3px;
-    background:#fff;
-    border-radius:50%;
-    animation:twinkle linear infinite;
-}
-
-@keyframes twinkle{
-
-0%,100%{
-opacity:.2;
-transform:scale(.5);
-}
-
-50%{
-opacity:1;
-transform:scale(1.8);
-}
-
-}
-
-/*==========================================
-        HEARTS
-==========================================*/
-
-#hearts,
-#roses,
-#sparkles{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-pointer-events:none;
-
-overflow:hidden;
-
-z-index:2;
-
-}
-
-.heart{
-
-position:absolute;
-
-font-size:25px;
-
-animation:heartFall linear forwards;
-
-}
-
-@keyframes heartFall{
-
-0%{
-
-transform:
-translateY(-100px)
-rotate(0deg);
-
-opacity:1;
-
-}
-
-100%{
-
-transform:
-translateY(110vh)
-rotate(360deg);
-
-opacity:0;
-
-}
-
-}
-
-/*==========================================
-        ROSES
-==========================================*/
-
-.rose{
-
-position:absolute;
-
-font-size:30px;
-
-animation:roseFall linear forwards;
-
-}
-
-@keyframes roseFall{
-
-0%{
-
-transform:
-translateY(-120px)
-rotate(0deg);
-
-opacity:1;
-
-}
-
-100%{
-
-transform:
-translateY(110vh)
-rotate(-360deg);
-
-opacity:0;
-
-}
-
-}
-
-/*==========================================
-        CURSOR SPARKLE
-==========================================*/
-
-.spark{
-
-position:fixed;
-
-width:8px;
-height:8px;
-
-border-radius:50%;
-
-background:#fff;
-
-box-shadow:
-0 0 10px #fff,
-0 0 20px #ff0080,
-0 0 30px #ff0080;
-
-pointer-events:none;
-
-animation:spark .8s linear forwards;
-
-}
-
-@keyframes spark{
-
-0%{
-
-transform:scale(1);
-
-opacity:1;
-
-}
-
-100%{
-
-transform:scale(0);
-
-opacity:0;
-
-}
-
-}
-
-/*==========================================
-        GLASS SHINE
-==========================================*/
-
-.glass{
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.glass::before{
-
-content:"";
-
-position:absolute;
-
-top:-100%;
-
-left:-50%;
-
-width:60%;
-
-height:300%;
-
-background:linear-gradient(
-
-transparent,
-
-rgba(255,255,255,.35),
-
-transparent
-
-);
-
-transform:rotate(25deg);
-
-animation:shine 5s infinite;
-
-}
-
-@keyframes shine{
-
-0%{
-
-left:-80%;
-
-}
-
-100%{
-
-left:180%;
-
-}
-
-}
-
-/*==========================================
-        BUTTON GLOW
-==========================================*/
-
-#yesBtn{
-
-animation:glow 2s infinite;
-
-}
-
-@keyframes glow{
-
-0%{
-
-box-shadow:
-0 0 20px #ff0066;
-
-}
-
-50%{
-
-box-shadow:
-0 0 40px #ff0066,
-0 0 80px #ff0066;
-
-}
-
-100%{
-
-box-shadow:
-0 0 20px #ff0066;
-
-}
-
-}
-
-/*==========================================
-        IMAGE EFFECT
-==========================================*/
-
-.gallery img{
-
-transition:.6s;
-
-}
-
-.gallery img:hover{
-
-transform:
-
-scale(1.08)
-rotate(2deg);
-
-filter:
-
-brightness(1.15);
-
-}
-
-/*==========================================
-        FOOTER GLOW
-==========================================*/
-
-footer{
-
-background:rgba(0,0,0,.5);
-
-backdrop-filter:blur(10px);
-
-}
-
-footer h2{
-
-color:#fff;
-
-text-shadow:
-
-0 0 15px #ff0080;
-
-}
-
-/*==========================================
-        SCROLLBAR
-==========================================*/
-
-::-webkit-scrollbar{
-
-width:10px;
-
-}
-
-::-webkit-scrollbar-track{
-
-background:#111;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-background:#ff0066;
-
-border-radius:20px;
-
-}
-
-/*==========================================
-        MOBILE
-==========================================*/
-
-@media(max-width:600px){
-
-.logo{
-
-font-size:22px;
-
-}
-
-nav{
-
-padding:15px;
-
-}
-
-nav ul{
-
-display:none;
-
-}
-
-.gallery{
-
-grid-template-columns:1fr;
-
-}
-
-#musicBtn{
-
-width:55px;
-
-height:55px;
-
-font-size:20px;
-
-}
-
+@media (max-width: 768px) {
+    #typing { font-size: 48px; }
+    .sub-text { font-size: 18px; }
+    .hero-desc { font-size: 16px; }
+    .ring { width: 120px; }
+    nav ul { display: none; }
+    .glass { padding: 30px 20px; }
+    .glass h2, .section-title h2 { font-size: 28px; }
+    .glass p { font-size: 16px; }
 }

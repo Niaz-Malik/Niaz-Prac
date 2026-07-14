@@ -1,263 +1,319 @@
 /* ==========================================
-        LOADER
+        LOADER REMOVAL
 ========================================== */
-
 window.addEventListener("load", () => {
-
+    const loader = document.getElementById("loader");
     setTimeout(() => {
-
-        document.getElementById("loader").style.opacity = "0";
-
+        loader.style.opacity = "0";
         setTimeout(() => {
-
-            document.getElementById("loader").style.display = "none";
-
-        },800);
-
-    },2500);
-
+            loader.style.display = "none";
+        }, 800);
+    }, 2000);
 });
 
 /* ==========================================
         TYPING EFFECT
 ========================================== */
+const titleText = "❤️ Will You Marry Me? ❤️";
+const subText = "You make my heart skip a beat...";
+const typing = document.getElementById("typing");
+const subTyping = document.getElementById("sub-typing");
 
-const text="❤️ Will You Marry Me? ❤️";
+let titleIndex = 0;
+let subIndex = 0;
 
-const typing=document.getElementById("typing");
+function typeTitle() {
+    if (titleIndex < titleText.length) {
+        typing.innerHTML += titleText.charAt(titleIndex);
+        titleIndex++;
+        setTimeout(typeTitle, 100);
+    } else {
+        setTimeout(typeSub, 500);
+    }
+}
 
-let i=0;
+function typeSub() {
+    if (subIndex < subText.length) {
+        subTyping.innerHTML += subText.charAt(subIndex);
+        subIndex++;
+        setTimeout(typeSub, 60);
+    }
+}
 
-function type(){
+// Start Typing Effect
+typeTitle();
 
-    if(i<text.length){
+/* ==========================================
+        AUDIO CONTROL WITH GESTURE RECOVERY
+========================================== */
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+let isPlaying = false;
 
-        typing.innerHTML+=text.charAt(i);
+// Auto-play on first click anywhere (for browsers restriction)
+document.body.addEventListener('click', () => {
+    if(!isPlaying) {
+        // Uncomment below to autoplay on first page interaction
+        // playMusic();
+    }
+}, { once: true });
 
-        i++;
+function playMusic() {
+    music.play().then(() => {
+        isPlaying = true;
+        musicBtn.innerHTML = "<i class='fa-solid fa-pause'></i>";
+        musicBtn.classList.add("pulse-animation");
+    }).catch(err => console.log("User interaction required first"));
+}
 
-        setTimeout(type,120);
+function pauseMusic() {
+    music.pause();
+    isPlaying = false;
+    musicBtn.innerHTML = "<i class='fa-solid fa-music'></i>";
+    musicBtn.classList.remove("pulse-animation");
+}
 
+musicBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (!isPlaying) {
+        playMusic();
+    } else {
+        pauseMusic();
+    }
+};
+
+/* ==========================================
+        DYNAMIC "YES" & "NO" BUTTON SYSTEM
+========================================== */
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+let yesScale = 1;
+let noScale = 1;
+
+// "NO" button behavior (Run away)
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 180);
+    const y = Math.random() * (window.innerHeight - 80);
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// If they manage to tap/click "NO", make "YES" bigger!
+noBtn.addEventListener("click", () => {
+    yesScale += 0.3;
+    noScale -= 0.15;
+    yesBtn.style.transform = `scale(${yesScale})`;
+    if(noScale <= 0.3) {
+        noBtn.style.display = "none";
+    } else {
+        noBtn.style.transform = `scale(${noScale})`;
+    }
+});
+
+// "YES" Click - Background change, alert & starts Fireworks
+yesBtn.onclick = () => {
+    document.body.style.background = "linear-gradient(135deg, #1e0010, #3a001a, #000000)";
+    
+    // Smooth scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Custom alerts instead of basic ones
+    alert("❤️ OMG! THANK YOU! ❤️\n\nYou have made me the happiest person in the world!");
+    
+    // Fire real canvas fireworks
+    startFireworks();
+};
+
+/* ==========================================
+        RAIN GENERATORS (Hearts & Roses)
+========================================== */
+const heartsContainer = document.getElementById("hearts");
+const rosesContainer = document.getElementById("roses");
+
+function createFallingElement(container, char, baseSpeed) {
+    const el = document.createElement("div");
+    el.className = container.id === "hearts" ? "heart" : "rose";
+    el.innerHTML = char;
+    el.style.left = Math.random() * 100 + "%";
+    
+    // Random sizes
+    const size = (15 + Math.random() * 25);
+    el.style.fontSize = size + "px";
+    
+    // Random speeds
+    const duration = (baseSpeed + Math.random() * 4);
+    el.style.animationDuration = duration + "s";
+    
+    container.appendChild(el);
+    
+    // Self cleanup
+    setTimeout(() => {
+        el.remove();
+    }, duration * 1000);
+}
+
+// Spawning intervals
+setInterval(() => createFallingElement(heartsContainer, "❤️", 5), 350);
+setInterval(() => createFallingElement(rosesContainer, "🌹", 6), 650);
+
+/* ==========================================
+        STARS GENERATOR
+========================================== */
+const stars = document.getElementById("stars");
+const starCount = 150;
+
+for (let i = 0; i < starCount; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDuration = (1.5 + Math.random() * 3) + "s";
+    star.style.animationDelay = Math.random() * 2 + "s";
+    stars.appendChild(star);
+}
+
+/* ==========================================
+        MOUSE SPARKLES
+========================================== */
+document.addEventListener("mousemove", (e) => {
+    const spark = document.createElement("div");
+    spark.className = "spark";
+    spark.style.left = e.clientX + "px";
+    spark.style.top = e.clientY + "px";
+    
+    // Randomise spark hue slightly
+    const randomColors = ["#ff007f", "#ff4d88", "#ff0066", "#ffccd5"];
+    spark.style.backgroundColor = randomColors[Math.floor(Math.random() * randomColors.length)];
+    
+    document.body.appendChild(spark);
+    setTimeout(() => {
+        spark.remove();
+    }, 800);
+});
+
+/* ==========================================
+        COUNTDOWN TIMER
+========================================== */
+const countdown = document.getElementById("countdown");
+// Format: Year, Month (0-indexed, so 1 = Feb), Day
+const targetDate = new Date(2026, 1, 14, 0, 0, 0).getTime(); 
+
+function updateTimer() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    // Check if the date has already passed
+    if (diff < 0) {
+        countdown.innerHTML = "<span>Our Beautiful Journey Has Begun ❤️</span>";
+        return;
     }
 
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    countdown.innerHTML = `
+        <span>${d} Days</span> 
+        <span>${h} Hours</span> 
+        <span>${m} Mins</span> 
+        <span>${s} Secs</span>
+    `;
 }
 
-type();
+setInterval(updateTimer, 1000);
+updateTimer();
 
 /* ==========================================
-        MUSIC
+        ADVANCED FIREWORKS ENGINE
 ========================================== */
+const canvas = document.getElementById("fireworksCanvas");
+const ctx = canvas.getContext("2d");
 
-const music=document.getElementById("music");
+let fireworksActive = false;
+let particles = [];
+let fireworkSpawns = [];
 
-const musicBtn=document.getElementById("musicBtn");
+// Resize canvas
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-let playing=false;
+class FireworkParticle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = Math.random() * 2.5 + 1;
+        this.angle = Math.random() * Math.PI * 2;
+        this.speed = Math.random() * 6 + 2;
+        this.gravity = 0.08;
+        this.friction = 0.98;
+        this.opacity = 1;
+        this.fade = Math.random() * 0.015 + 0.01;
+        this.velocityX = Math.cos(this.angle) * this.speed;
+        this.velocityY = Math.sin(this.angle) * this.speed;
+    }
 
-musicBtn.onclick=()=>{
+    update() {
+        this.velocityX *= this.friction;
+        this.velocityY *= this.friction;
+        this.velocityY += this.gravity;
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+        this.opacity -= this.fade;
+    }
 
-if(!playing){
-
-music.play();
-
-playing=true;
-
-musicBtn.innerHTML="<i class='fa-solid fa-pause'></i>";
-
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.restore();
+    }
 }
 
-else{
-
-music.pause();
-
-playing=false;
-
-musicBtn.innerHTML="<i class='fa-solid fa-music'></i>";
-
+function spawnExplosion(x, y) {
+    const colors = ["#ff0055", "#ff4d8d", "#00f0ff", "#ffb700", "#ff00ff", "#ffffff"];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    for (let i = 0; i < 60; i++) {
+        particles.push(new FireworkParticle(x, y, color));
+    }
 }
 
-};
+function animateFireworks() {
+    if (!fireworksActive) return;
+    requestAnimationFrame(animateFireworks);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-/* ==========================================
-        YES BUTTON
-========================================== */
+    // Randomly spawn explosions
+    if (Math.random() < 0.05) {
+        const rx = Math.random() * canvas.width;
+        const ry = Math.random() * (canvas.height * 0.6);
+        spawnExplosion(rx, ry);
+    }
 
-const yesBtn=document.getElementById("yesBtn");
-
-yesBtn.onclick=()=>{
-
-document.body.style.background="linear-gradient(135deg,#ff0080,#ff4d6d,#ff9a9e)";
-
-alert("❤️ Thank You ❤️\n\nYou Made My Life Beautiful!");
-
-startFireworks();
-
-};
-
-/* ==========================================
-        RUNNING NO BUTTON
-========================================== */
-
-const noBtn=document.getElementById("noBtn");
-
-noBtn.addEventListener("mouseover",()=>{
-
-const x=Math.random()*(window.innerWidth-200);
-
-const y=Math.random()*(window.innerHeight-100);
-
-noBtn.style.position="fixed";
-
-noBtn.style.left=x+"px";
-
-noBtn.style.top=y+"px";
-
-});
-
-/* ==========================================
-        HEART RAIN
-========================================== */
-
-const hearts=document.getElementById("hearts");
-
-function heart(){
-
-const h=document.createElement("div");
-
-h.className="heart";
-
-h.innerHTML="❤️";
-
-h.style.left=Math.random()*100+"%";
-
-h.style.fontSize=(20+Math.random()*25)+"px";
-
-h.style.animationDuration=(4+Math.random()*4)+"s";
-
-hearts.appendChild(h);
-
-setTimeout(()=>{
-
-h.remove();
-
-},8000);
-
+    particles = particles.filter(p => p.opacity > 0);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
 }
 
-setInterval(heart,250);
-
-/* ==========================================
-        ROSE RAIN
-========================================== */
-
-const roses=document.getElementById("roses");
-
-function rose(){
-
-const r=document.createElement("div");
-
-r.className="rose";
-
-r.innerHTML="🌹";
-
-r.style.left=Math.random()*100+"%";
-
-r.style.fontSize=(20+Math.random()*20)+"px";
-
-r.style.animationDuration=(5+Math.random()*5)+"s";
-
-roses.appendChild(r);
-
-setTimeout(()=>{
-
-r.remove();
-
-},9000);
-
-}
-
-setInterval(rose,700);
-
-/* ==========================================
-        STARS
-========================================== */
-
-const stars=document.getElementById("stars");
-
-for(let i=0;i<200;i++){
-
-const star=document.createElement("div");
-
-star.className="star";
-
-star.style.left=Math.random()*100+"%";
-
-star.style.top=Math.random()*100+"%";
-
-star.style.animationDuration=(2+Math.random()*4)+"s";
-
-stars.appendChild(star);
-
-}
-
-/* ==========================================
-        CURSOR SPARKLES
-========================================== */
-
-document.addEventListener("mousemove",(e)=>{
-
-const s=document.createElement("div");
-
-s.className="spark";
-
-s.style.left=e.clientX+"px";
-
-s.style.top=e.clientY+"px";
-
-document.body.appendChild(s);
-
-setTimeout(()=>{
-
-s.remove();
-
-},800);
-
-});
-
-/* ==========================================
-        LOVE TIMER
-========================================== */
-
-const countdown=document.getElementById("countdown");
-
-const target=new Date("2026-02-14").getTime();
-
-setInterval(()=>{
-
-const now=new Date().getTime();
-
-const diff=target-now;
-
-const d=Math.floor(diff/1000/60/60/24);
-
-const h=Math.floor(diff%(1000*60*60*24)/(1000*60*60));
-
-const m=Math.floor(diff%(1000*60*60)/(1000*60));
-
-const s=Math.floor(diff%(1000*60)/1000);
-
-countdown.innerHTML=
-
-`${d} Days ❤️ ${h} Hours ❤️ ${m} Minutes ❤️ ${s} Seconds`;
-
-},1000);
-
-/* ==========================================
-        FIREWORKS PLACEHOLDER
-========================================== */
-
-function startFireworks(){
-
-console.log("Fireworks Started");
-
+function startFireworks() {
+    fireworksActive = true;
+    animateFireworks();
+    // Auto stop after 15 seconds to save processing power
+    setTimeout(() => {
+        fireworksActive = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 15000);
 }

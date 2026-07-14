@@ -1,238 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>❤️ Forever With You ❤️</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-<link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Forever With You ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- Loading Screen -->
-
-<div id="loader">
-
-<div class="loader-heart">
-
-❤️
-
-</div>
-
-<h2>Loading Love...</h2>
-
-</div>
-
-<!-- Background Video -->
-
-<video autoplay muted loop id="bgVideo">
-
-<source src="assets/bg.mp4" type="video/mp4">
-
-</video>
-
-<div class="overlay"></div>
-
-<!-- Stars -->
-
-<div id="stars"></div>
-
-<!-- Hearts -->
-
-<div id="hearts"></div>
-
-<!-- Roses -->
-
-<div id="roses"></div>
-
-<!-- Sparkles -->
-
-<div id="sparkles"></div>
-
-<!-- Navbar -->
-
-<nav>
-
-<div class="logo">
-
-❤️ Forever
-
-</div>
-
-<ul>
-
-<li><a href="#">Home</a></li>
-
-<li><a href="#gallery">Gallery</a></li>
-
-<li><a href="#letter">Letter</a></li>
-
-<li><a href="#timer">Love Time</a></li>
-
-</ul>
-
-</nav>
-
-<!-- Hero -->
-
-<section class="hero">
-
-<h1 id="typing"></h1>
-
-<p>
-
-Every heartbeat reminds me of you...
-
-You are my today,
-
-my tomorrow,
-
-and my forever.
-
-💖
-
-</p>
-
-<img src="assets/ring.png" class="ring">
-
-<div class="buttons">
-
-<button id="yesBtn">
-
-❤️ YES ❤️
-
-</button>
-
-<button id="noBtn">
-
-😅 NO
-
-</button>
-
-</div>
-
-</section>
-
-<!-- Love Letter -->
-
-<section id="letter">
-
-<div class="glass">
-
-<h2>
-
-💌 My Love Letter
-
-</h2>
-
-<p>
-
-From the first moment I saw you,
-
-my life changed forever.
-
-Your smile is my happiness.
-
-Your voice is my peace.
-
-Your love is my world.
-
-Will you stay with me forever?
-
-❤️
-
-</p>
-
-</div>
-
-</section>
-
-<!-- Gallery -->
-
-<section id="gallery">
-
-<h2>
-
-📸 Our Memories
-
-</h2>
-
-<div class="gallery">
-
-<img src="assets/photo1.jpg">
-
-<img src="assets/photo2.jpg">
-
-<img src="assets/photo3.jpg">
-
-<img src="assets/photo4.jpg">
-
-<img src="assets/photo5.jpg">
-
-<img src="assets/photo6.jpg">
-
-</div>
-
-</section>
-
-<!-- Countdown -->
-
-<section class="love-time">
-
-<h2>
-
-⏳ Time Since We Met
-
-</h2>
-
-<div id="countdown"></div>
-
-</section>
-
-<!-- Music -->
-
-<div id="musicBtn">
-
-<i class="fa-solid fa-music"></i>
-
-</div>
-
-<audio id="music" loop>
-
-<source src="assets/music.mp3">
-
-</audio>
-
-<!-- Fireworks -->
-
-<canvas id="fireworks"></canvas>
-
-<!-- Footer -->
-
-<footer>
-
-<h2>
-
-Made With ❤️ By Niaz
-
-</h2>
-
-</footer>
-
-<script src="script.js"></script>
-
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-heart">❤️</div>
+        <h2>Loading Love...</h2>
+    </div>
+
+    <!-- Background Video & Canvas -->
+    <video autoplay muted loop id="bgVideo">
+        <source src="assets/bg.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <canvas id="fireworksCanvas"></canvas>
+
+    <!-- Floating Background Effects Containers -->
+    <div id="stars"></div>
+    <div id="hearts"></div>
+    <div id="roses"></div>
+    <div id="sparkles"></div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">❤️ Forever</div>
+        <ul>
+            <li><a href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="#letter"><i class="fa-solid fa-envelope"></i> Letter</a></li>
+            <li><a href="#gallery"><i class="fa-solid fa-images"></i> Gallery</a></li>
+            <li><a href="#timer"><i class="fa-solid fa-clock"></i> Love Time</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="typing"></h1>
+            <p id="sub-typing" class="sub-text"></p>
+            <p class="hero-desc">
+                Every heartbeat reminds me of you... <br>
+                You are my today, my tomorrow, and my forever. 💖
+            </p>
+            <div class="ring-container">
+                <img src="assets/ring.png" class="ring" alt="Ring">
+            </div>
+            <div class="buttons">
+                <button id="yesBtn">❤️ YES ❤️</button>
+                <button id="noBtn">😅 NO</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letter -->
+    <section id="letter">
+        <div class="glass card-animate">
+            <h2><i class="fa-solid fa-envelope-open-text" style="color: #ff4d88;"></i> My Love Letter</h2>
+            <div class="letter-border"></div>
+            <p>
+                From the first moment I saw you, my life changed forever. <br>
+                Your smile is my happiness. Your voice is my peace. <br>
+                Your love is my world. <br><br>
+                <strong>Will you stay with me forever?</strong> ❤️
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+        <div class="section-title">
+            <h2>📸 Our Memories</h2>
+            <p>Capturing beautiful moments of us</p>
+        </div>
+        <div class="gallery">
+            <div class="gallery-item"><img src="assets/photo1.jpg" alt="Memory 1"></div>
+            <div class="gallery-item"><img src="assets/photo2.jpg" alt="Memory 2"></div>
+            <div class="gallery-item"><img src="assets/photo3.jpg" alt="Memory 3"></div>
+            <div class="gallery-item"><img src="assets/photo4.jpg" alt="Memory 4"></div>
+            <div class="gallery-item"><img src="assets/photo5.jpg" alt="Memory 5"></div>
+            <div class="gallery-item"><img src="assets/photo6.jpg" alt="Memory 6"></div>
+        </div>
+    </section>
+
+    <!-- Countdown / Timer -->
+    <section id="timer" class="love-time card-animate">
+        <div class="glass">
+            <h2>⏳ Time Since We Met</h2>
+            <div class="timer-border"></div>
+            <div id="countdown"></div>
+        </div>
+    </section>
+
+    <!-- Floating Audio Control -->
+    <div id="musicBtn" class="pulse-animation">
+        <i class="fa-solid fa-music"></i>
+    </div>
+    <audio id="music" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Footer -->
+    <footer>
+        <h2>Made With ❤️ By Niaz</h2>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
