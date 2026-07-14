@@ -1,161 +1,263 @@
-/* ===========================================
-   SELECT ELEMENTS
-=========================================== */
+/* ==========================================
+        LOADER
+========================================== */
 
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const musicBtn = document.getElementById("musicBtn");
-const music = document.getElementById("music");
-const timer = document.getElementById("timer");
+window.addEventListener("load", () => {
 
-let playing = false;
+    setTimeout(() => {
 
-/* ===========================================
-   MUSIC BUTTON
-=========================================== */
+        document.getElementById("loader").style.opacity = "0";
 
-musicBtn.addEventListener("click", () => {
+        setTimeout(() => {
 
-    if (playing) {
+            document.getElementById("loader").style.display = "none";
 
-        music.pause();
-        musicBtn.innerHTML = "🎵";
-        playing = false;
+        },800);
 
-    } else {
+    },2500);
 
-        music.play();
-        musicBtn.innerHTML = "⏸";
-        playing = true;
+});
+
+/* ==========================================
+        TYPING EFFECT
+========================================== */
+
+const text="❤️ Will You Marry Me? ❤️";
+
+const typing=document.getElementById("typing");
+
+let i=0;
+
+function type(){
+
+    if(i<text.length){
+
+        typing.innerHTML+=text.charAt(i);
+
+        i++;
+
+        setTimeout(type,120);
 
     }
 
-});
+}
 
-/* ===========================================
-   RUNNING NO BUTTON
-=========================================== */
+type();
 
-noBtn.addEventListener("mouseover", () => {
+/* ==========================================
+        MUSIC
+========================================== */
 
-    const x = Math.random() * (window.innerWidth - 200);
-    const y = Math.random() * (window.innerHeight - 100);
+const music=document.getElementById("music");
 
-    noBtn.style.position = "fixed";
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+const musicBtn=document.getElementById("musicBtn");
 
-});
+let playing=false;
 
-/* ===========================================
-   YES BUTTON
-=========================================== */
+musicBtn.onclick=()=>{
 
-yesBtn.addEventListener("click", () => {
+if(!playing){
 
-    alert("❤️ YAY! Thank You ❤️\n\nYou Made My Life Beautiful 💍");
+music.play();
 
-    document.body.style.background =
-    "linear-gradient(135deg,#ff0080,#ff4d6d,#ff758c)";
+playing=true;
 
-});
-
-/* ===========================================
-   HEART RAIN
-=========================================== */
-
-const hearts = document.getElementById("hearts");
-
-function createHeart() {
-
-    const heart = document.createElement("div");
-
-    heart.classList.add("heart");
-
-    heart.innerHTML = "❤️";
-
-    heart.style.left = Math.random() * 100 + "%";
-
-    heart.style.animationDuration =
-        (Math.random() * 4 + 4) + "s";
-
-    heart.style.fontSize =
-        (Math.random() * 25 + 20) + "px";
-
-    hearts.appendChild(heart);
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    }, 8000);
+musicBtn.innerHTML="<i class='fa-solid fa-pause'></i>";
 
 }
 
-setInterval(createHeart, 300);
+else{
 
-/* ===========================================
-   ROSE RAIN
-=========================================== */
+music.pause();
 
-const roses = document.getElementById("roses");
+playing=false;
 
-function createRose() {
-
-    const rose = document.createElement("div");
-
-    rose.classList.add("rose");
-
-    rose.innerHTML = "🌹";
-
-    rose.style.left = Math.random() * 100 + "%";
-
-    rose.style.animationDuration =
-        (Math.random() * 5 + 5) + "s";
-
-    rose.style.fontSize =
-        (Math.random() * 15 + 25) + "px";
-
-    roses.appendChild(rose);
-
-    setTimeout(() => {
-
-        rose.remove();
-
-    }, 9000);
+musicBtn.innerHTML="<i class='fa-solid fa-music'></i>";
 
 }
 
-setInterval(createRose, 700);
+};
 
-/* ===========================================
-   COUNTDOWN TIMER
-=========================================== */
+/* ==========================================
+        YES BUTTON
+========================================== */
 
-const targetDate = new Date("February 14, 2027 00:00:00").getTime();
+const yesBtn=document.getElementById("yesBtn");
 
-setInterval(() => {
+yesBtn.onclick=()=>{
 
-    const now = new Date().getTime();
+document.body.style.background="linear-gradient(135deg,#ff0080,#ff4d6d,#ff9a9e)";
 
-    const distance = targetDate - now;
+alert("❤️ Thank You ❤️\n\nYou Made My Life Beautiful!");
 
-    const days =
-        Math.floor(distance / (1000 * 60 * 60 * 24));
+startFireworks();
 
-    const hours =
-        Math.floor((distance % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60));
+};
 
-    const minutes =
-        Math.floor((distance % (1000 * 60 * 60))
-        / (1000 * 60));
+/* ==========================================
+        RUNNING NO BUTTON
+========================================== */
 
-    const seconds =
-        Math.floor((distance % (1000 * 60))
-        / 1000);
+const noBtn=document.getElementById("noBtn");
 
-    timer.innerHTML =
-    `${days} Days ❤️ ${hours} Hours ❤️ ${minutes} Minutes ❤️ ${seconds} Seconds`;
+noBtn.addEventListener("mouseover",()=>{
 
-}, 1000);
+const x=Math.random()*(window.innerWidth-200);
+
+const y=Math.random()*(window.innerHeight-100);
+
+noBtn.style.position="fixed";
+
+noBtn.style.left=x+"px";
+
+noBtn.style.top=y+"px";
+
+});
+
+/* ==========================================
+        HEART RAIN
+========================================== */
+
+const hearts=document.getElementById("hearts");
+
+function heart(){
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤️";
+
+h.style.left=Math.random()*100+"%";
+
+h.style.fontSize=(20+Math.random()*25)+"px";
+
+h.style.animationDuration=(4+Math.random()*4)+"s";
+
+hearts.appendChild(h);
+
+setTimeout(()=>{
+
+h.remove();
+
+},8000);
+
+}
+
+setInterval(heart,250);
+
+/* ==========================================
+        ROSE RAIN
+========================================== */
+
+const roses=document.getElementById("roses");
+
+function rose(){
+
+const r=document.createElement("div");
+
+r.className="rose";
+
+r.innerHTML="🌹";
+
+r.style.left=Math.random()*100+"%";
+
+r.style.fontSize=(20+Math.random()*20)+"px";
+
+r.style.animationDuration=(5+Math.random()*5)+"s";
+
+roses.appendChild(r);
+
+setTimeout(()=>{
+
+r.remove();
+
+},9000);
+
+}
+
+setInterval(rose,700);
+
+/* ==========================================
+        STARS
+========================================== */
+
+const stars=document.getElementById("stars");
+
+for(let i=0;i<200;i++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"%";
+
+star.style.top=Math.random()*100+"%";
+
+star.style.animationDuration=(2+Math.random()*4)+"s";
+
+stars.appendChild(star);
+
+}
+
+/* ==========================================
+        CURSOR SPARKLES
+========================================== */
+
+document.addEventListener("mousemove",(e)=>{
+
+const s=document.createElement("div");
+
+s.className="spark";
+
+s.style.left=e.clientX+"px";
+
+s.style.top=e.clientY+"px";
+
+document.body.appendChild(s);
+
+setTimeout(()=>{
+
+s.remove();
+
+},800);
+
+});
+
+/* ==========================================
+        LOVE TIMER
+========================================== */
+
+const countdown=document.getElementById("countdown");
+
+const target=new Date("2026-02-14").getTime();
+
+setInterval(()=>{
+
+const now=new Date().getTime();
+
+const diff=target-now;
+
+const d=Math.floor(diff/1000/60/60/24);
+
+const h=Math.floor(diff%(1000*60*60*24)/(1000*60*60));
+
+const m=Math.floor(diff%(1000*60*60)/(1000*60));
+
+const s=Math.floor(diff%(1000*60)/1000);
+
+countdown.innerHTML=
+
+`${d} Days ❤️ ${h} Hours ❤️ ${m} Minutes ❤️ ${s} Seconds`;
+
+},1000);
+
+/* ==========================================
+        FIREWORKS PLACEHOLDER
+========================================== */
+
+function startFireworks(){
+
+console.log("Fireworks Started");
+
+}

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>❤️ My Proposal ❤️</title>
+<title>❤️ Forever With You ❤️</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-<!-- Font Awesome -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 <link rel="stylesheet" href="style.css">
 
@@ -20,38 +21,85 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
 
 <body>
 
+<!-- Loading Screen -->
+
+<div id="loader">
+
+<div class="loader-heart">
+
+❤️
+
+</div>
+
+<h2>Loading Love...</h2>
+
+</div>
+
 <!-- Background Video -->
 
 <video autoplay muted loop id="bgVideo">
+
 <source src="assets/bg.mp4" type="video/mp4">
+
 </video>
 
 <div class="overlay"></div>
 
-<!-- Floating Hearts -->
+<!-- Stars -->
+
+<div id="stars"></div>
+
+<!-- Hearts -->
 
 <div id="hearts"></div>
 
-<!-- Floating Roses -->
+<!-- Roses -->
 
 <div id="roses"></div>
 
-<!-- Main Container -->
+<!-- Sparkles -->
+
+<div id="sparkles"></div>
+
+<!-- Navbar -->
+
+<nav>
+
+<div class="logo">
+
+❤️ Forever
+
+</div>
+
+<ul>
+
+<li><a href="#">Home</a></li>
+
+<li><a href="#gallery">Gallery</a></li>
+
+<li><a href="#letter">Letter</a></li>
+
+<li><a href="#timer">Love Time</a></li>
+
+</ul>
+
+</nav>
+
+<!-- Hero -->
 
 <section class="hero">
 
-<h1 class="title">
-❤️
-Will You
-Marry Me?
-❤️
-</h1>
+<h1 id="typing"></h1>
 
-<p class="subtitle">
+<p>
 
-You are the most beautiful part of my life.
+Every heartbeat reminds me of you...
 
-I want to spend every moment with you forever.
+You are my today,
+
+my tomorrow,
+
+and my forever.
 
 💖
 
@@ -63,13 +111,13 @@ I want to spend every moment with you forever.
 
 <button id="yesBtn">
 
-YES ❤️
+❤️ YES ❤️
 
 </button>
 
 <button id="noBtn">
 
-NO 😅
+😅 NO
 
 </button>
 
@@ -79,23 +127,27 @@ NO 😅
 
 <!-- Love Letter -->
 
-<div class="letter">
+<section id="letter">
 
-<h2>💌 My Love Letter</h2>
+<div class="glass">
+
+<h2>
+
+💌 My Love Letter
+
+</h2>
 
 <p>
 
-From the day I met you,
+From the first moment I saw you,
 
-my life became more beautiful.
+my life changed forever.
 
-Every smile of yours makes my heart happy.
+Your smile is my happiness.
 
-You are my happiness,
+Your voice is my peace.
 
-my peace,
-
-my everything.
+Your love is my world.
 
 Will you stay with me forever?
 
@@ -105,17 +157,19 @@ Will you stay with me forever?
 
 </div>
 
+</section>
+
 <!-- Gallery -->
 
-<section class="gallery">
+<section id="gallery">
 
 <h2>
 
-Our Memories 📸
+📸 Our Memories
 
 </h2>
 
-<div class="photos">
+<div class="gallery">
 
 <img src="assets/photo1.jpg">
 
@@ -123,41 +177,37 @@ Our Memories 📸
 
 <img src="assets/photo3.jpg">
 
+<img src="assets/photo4.jpg">
+
+<img src="assets/photo5.jpg">
+
+<img src="assets/photo6.jpg">
+
 </div>
 
 </section>
 
 <!-- Countdown -->
 
-<section class="countdown">
+<section class="love-time">
 
 <h2>
 
-Time Together ❤️
+⏳ Time Since We Met
 
 </h2>
 
-<div id="timer">
-
-00 Days
-
-00 Hours
-
-00 Minutes
-
-00 Seconds
-
-</div>
+<div id="countdown"></div>
 
 </section>
 
-<!-- Music Button -->
+<!-- Music -->
 
-<button id="musicBtn">
+<div id="musicBtn">
 
-🎵
+<i class="fa-solid fa-music"></i>
 
-</button>
+</div>
 
 <audio id="music" loop>
 
@@ -169,13 +219,15 @@ Time Together ❤️
 
 <canvas id="fireworks"></canvas>
 
-<!-- Confetti -->
-
-<div id="confetti"></div>
+<!-- Footer -->
 
 <footer>
 
+<h2>
+
 Made With ❤️ By Niaz
+
+</h2>
 
 </footer>
 
